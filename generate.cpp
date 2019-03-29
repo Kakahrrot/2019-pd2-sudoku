@@ -1,6 +1,9 @@
+#include <iostream>
+#include "sudoku.h"
 int main()
 {
-    // finish your generate code...
-
-    return 0;
+ 	Sudoku su = Sudoku:: generate();
+	//su.print_map(Sudoku::generate().map);
+	su.print_map();
+	
 }
