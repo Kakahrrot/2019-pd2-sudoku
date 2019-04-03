@@ -65,18 +65,18 @@ void Sudoku::solve()
 	switch(ans)
 	{
 		case 0: case 2:
-			cout << ans << endl;
+			cout << ans << "\n"<< endl;
 			break;
 	 	case 1:
 			cout << ans << endl;
-		for(int i = 0; i < size; i++)
-		{
-			for(int j = 0; j < size - 1; j++)
-				cout << tmp[i][j] <<" ";
-			cout << tmp[i][size - 1] << "\n";
-		}
-				break;
-		}
+			for(int i = 0; i < size; i++)
+			{
+				for(int j = 0; j < size - 1; j++)
+					cout << tmp[i][j] <<" ";
+				cout << tmp[i][size - 1] << "\n";
+			}
+			break;
+	}
 	delete p;
 }
 
@@ -206,8 +206,7 @@ Sudoku Sudoku::generate()
 	Sudoku s;
 	//s.print_map();
 	srandom(time(NULL));
-	//int	num1 = 75;
-	int	num1 = random() % 5 + 30;//# of grips inserted
+	int	num1 = random() % 5;//# of grips inserted
 //	cout << num1 << endl;
 	int row, col;
 	while(num1 > 0)
