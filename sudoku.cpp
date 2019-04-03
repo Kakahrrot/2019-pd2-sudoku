@@ -65,10 +65,10 @@ void Sudoku::solve()
 	switch(ans)
 	{
 		case 0: case 2:
-			cout << ans;
+			cout << ans << "\n";
 			break;
 	 	case 1:
-			cout << ans << endl;
+			cout << ans << "\n";
 			for(int i = 0; i < size; i++)
 			{
 				for(int j = 0; j < size - 1; j++)
