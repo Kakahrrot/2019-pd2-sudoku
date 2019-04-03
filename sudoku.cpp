@@ -115,14 +115,27 @@ void Sudoku::rotate(int x)
 
 void Sudoku::swapCol(int x, int y)
 {
+	x *= 3;
+	y *= 3;
 	for(int i = 0; i < size; i++)
+	{
 		map[i][x] ^= map[i][y] ^= map[i][x] ^= map[i][y];
+		map[i][x+1] ^= map[i][y+1] ^= map[i][x+1] ^= map[i][y+1];
+		map[i][x+2] ^= map[i][y+2] ^= map[i][x+2] ^= map[i][y+2];
+
+	}
 }
 
 void Sudoku::swapRow(int x, int y)
 {
+	x *= 3;
+	y *= 3;
 	for(int i = 0; i < size; i++)
+	{
 		map[x][i] ^= map[y][i] ^= map[x][i] ^= map[y][i];
+		map[x+1][i] ^= map[y+1][i] ^= map[x+1][i] ^= map[y+1][i];
+		map[x+2][i] ^= map[y+2][i] ^= map[x+2][i] ^= map[y+2][i];
+	}
 }
 
 void Sudoku::swapNum(int x, int y)
