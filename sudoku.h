@@ -28,6 +28,7 @@ class Sudoku
 		void print_map();
 	private:
 		int get_position();
+		int get_position(int *p);
 		bool check(int row, int col, int n);
 		int map[size][size];
 

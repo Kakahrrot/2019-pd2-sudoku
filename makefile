@@ -1,7 +1,11 @@
-test: test.o sudoku.o
-	g++ -o test test.o sudoku.o
-test.o: test.cpp sudoku.h
-	g++ -c test.cpp
+#test: test.o sudoku.o
+#	g++ -o test test.o sudoku.o
+#test.o: test.cpp sudoku.h
+#	g++ -c test.cpp
+solve: solve.o sudoku.o
+	g++ -o solve solve.o  sudoku.o
+solve.o: solve.cpp sudoku.h
+	g++ -c solve.cpp
 transform: transform.o sudoku.o
 	g++ -o transform transform.o sudoku.o
 transform.o: transform.cpp sudoku.h

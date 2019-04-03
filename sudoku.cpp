@@ -10,55 +10,65 @@ void Sudoku::solve()
 	int *m = (int *)map;
 	int *p = new int[size * size];
 	int t, flag = 0, start;
-	int n = 0, ans = 0;
-//	cout << "solving" << endl;
+	int n = -1, ans = 0;
+	get_position(p);
 	while(1)
 	{
 	 	if(!flag)
 		{
-			p[n++] = get_position();
-//			cout << "position: "<< p[n-1] << endl;
+			n++;
 			start = 1;
 		}
 		else
 		{
-			start = m[p[n-2]] + 1;
+			start = m[p[n-1]] + 1;
 			n--;
 		 	if(start != size + 1)
 				flag = 0;
 			else
 			{
-				m[p[n-1]] = 0;
+				m[p[n]] = 0;
 			 	continue;
 			}
 		}
-		for(t = start; p[n-1] != -1 && t <= size; t++)
+		for(t = start; p[n] != -1 && t <= size; t++)
 		{
-			if( check(p[n-1]/size, p[n-1]%size, t) )
+			if( check(p[n]/size, p[n]%size, t) )
 			{
-				m[p[n-1]] = t;
-//				print_map();
+				m[p[n]] = t;
+			//	print_map();
 				break;
 			}
 		}
-		if(p[n-1] == -1)
+		if(p[n] == -1)
 		{
 		 	ans++;
-			//cout << "#" << ans << ":" << endl;
+			cout  << ans <<  endl;
 			print_map();
 		 	flag = 1;
 		}
 		else if(t == size + 1)
 		{
 		 	flag = 1;
-			m[p[n-1]] = 0;
+			m[p[n]] = 0;
 			if(p[0] == get_position())
 				break;
 		}
 	}
 	if(ans == 0)
-		cout << "not found" << endl;
+		cout << "0" << endl;
 	delete p;
+}
+
+int Sudoku::get_position(int *p)//set zero
+{
+	int *m = (int*)map;
+	int i = 0;
+	for(int j = 0; j < size * size; j++)
+	 	if(m[j] == 0)
+			p[i++] = j;
+	p[i] = -1;
+	return  i;
 }
 
 int Sudoku::get_position()//first zero
@@ -164,7 +174,7 @@ Sudoku Sudoku::generate()
 	//s.print_map();
 	srandom(time(NULL));
 	//int	num1 = 75;
-	int	num1 = random() % 5 + 22;//# of grips inserted
+	int	num1 = random() % 5 + 25;//# of grips inserted
 //	cout << num1 << endl;
 	int row, col;
 	while(num1 > 0)
