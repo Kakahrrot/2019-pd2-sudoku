@@ -9,6 +9,7 @@ void Sudoku::solve()
 {
 	int *m = (int *)map;
 	int *p = new int[size * size];
+	int tmp[size][size];
 	int t, flag = 0, start;
 	int n = -1, ans = 0;
 	get_position(p);
@@ -43,8 +44,14 @@ void Sudoku::solve()
 		if(p[n] == -1)
 		{
 		 	ans++;
-			cout  << ans <<  endl;
-			print_map();
+			if(ans == 1)
+			{
+			 	for(int i = 0; i < size; i++)
+					for(int j = 0; j < size; j++)
+						tmp[i][j] = map[i][j];
+			}
+			if(ans == 2)
+				break;
 		 	flag = 1;
 		}
 		else if(t == size + 1)
@@ -55,8 +62,21 @@ void Sudoku::solve()
 				break;
 		}
 	}
-	if(ans == 0)
-		cout << "0" << endl;
+	switch(ans)
+	{
+		case 0: case 2:
+			cout << ans << endl;
+			break;
+	 	case 1:
+			cout << ans << endl;
+		for(int i = 0; i < size; i++)
+		{
+			for(int j = 0; j < size - 1; j++)
+				cout << tmp[i][j] <<" ";
+			cout << tmp[i][size - 1] << "\n";
+		}
+				break;
+		}
 	delete p;
 }
 
@@ -187,7 +207,7 @@ Sudoku Sudoku::generate()
 	//s.print_map();
 	srandom(time(NULL));
 	//int	num1 = 75;
-	int	num1 = random() % 5 + 25;//# of grips inserted
+	int	num1 = random() % 5 + 30;//# of grips inserted
 //	cout << num1 << endl;
 	int row, col;
 	while(num1 > 0)
