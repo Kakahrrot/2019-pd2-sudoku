@@ -2,6 +2,7 @@
 #	g++ -o test test.o sudoku.o
 #test.o: test.cpp sudoku.h
 #	g++ -c test.cpp
+all: solve generate transform
 solve: solve.o sudoku.o
 	g++ -o solve solve.o  sudoku.o
 solve.o: solve.cpp sudoku.h
