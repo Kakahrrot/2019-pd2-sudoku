@@ -65,7 +65,7 @@ void Sudoku::solve()
 	switch(ans)
 	{
 		case 0: case 2:
-			cout << ans << "\n"<< endl;
+			cout << ans;
 			break;
 	 	case 1:
 			cout << ans << endl;
