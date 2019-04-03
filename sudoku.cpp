@@ -224,6 +224,5 @@ void Sudoku::print_map()
 			cout << map[i][j] <<" ";
 		cout << map[i][size - 1] << "\n";
 	}
-	cout << endl;
 }
 
