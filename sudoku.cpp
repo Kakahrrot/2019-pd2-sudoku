@@ -177,7 +177,7 @@ Sudoku Sudoku::generate() {
     Sudoku s;
     //s.print_map();
     srandom(time(NULL));
-    int	num1 = random() % 5 + 26;//# of grips inserted
+    int	num1 = random() % 5;//# of grips inserted
 //	cout << num1 << endl;
     int row, col;
     while(num1 > 0) {
