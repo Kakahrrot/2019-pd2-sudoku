@@ -47,9 +47,6 @@ void Sudoku::solve()
 		if(n == total)
 		{
 		 	ans++;
-			cout << ans << "\n";
-			print_map();
-			cout << "\n";
 			if(ans == 1)
 			{
 			 	for(int i = 0; i < size; i++)
