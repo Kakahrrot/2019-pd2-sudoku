@@ -10,9 +10,9 @@ void Sudoku::solve()
 	int *m = (int *)map;
 	int *p = new int[size * size];
 	int tmp[size][size];
-	int t, flag = 0, start;
+	int t = 0, flag = 0, start;
 	int n = -1, ans = 0;
-	get_position(p);
+	int total = get_position(p);
 	while(1)
 	{
 	 	if(!flag)
@@ -22,28 +22,34 @@ void Sudoku::solve()
 		}
 		else
 		{
-			start = m[p[n-1]] + 1;
 			n--;
-		 	if(start != size + 1)
+		 	if(m[p[n]] != size)
+			{
+				start = m[p[n]] + 1;
 				flag = 0;
+			}
 			else
 			{
 				m[p[n]] = 0;
-			 	continue;
+				if(n == 0) // additional terminating contition
+					break;
+				continue;
 			}
 		}
-		for(t = start; p[n] != -1 && t <= size; t++)
+		for(t = start; n != total && t <= size; t++)
 		{
 			if( check(p[n]/size, p[n]%size, t) )
 			{
 				m[p[n]] = t;
-			//	print_map();
 				break;
 			}
 		}
-		if(p[n] == -1)
+		if(n == total)
 		{
 		 	ans++;
+			cout << ans << "\n";
+			print_map();
+			cout << "\n";
 			if(ans == 1)
 			{
 			 	for(int i = 0; i < size; i++)
@@ -52,14 +58,15 @@ void Sudoku::solve()
 			}
 			if(ans == 2)
 				break;
-		 	flag = 1;
+			flag = 1;
 		}
+
 		else if(t == size + 1)
 		{
-		 	flag = 1;
 			m[p[n]] = 0;
-			if(p[0] == get_position())
+			if(n == 0)
 				break;
+		 	flag = 1;
 		}
 	}
 	switch(ans)
@@ -87,17 +94,16 @@ int Sudoku::get_position(int *p)//set zero
 	for(int j = 0; j < size * size; j++)
 	 	if(m[j] == 0)
 			p[i++] = j;
-	p[i] = -1;
 	return  i;
 }
 
 int Sudoku::get_position()//first zero
 {
 	int *m = (int*)map;
-	int i = 0;
-	while(m[i] != 0)
-	 	i++;
-	return i == size * size ? -1: i;
+	int i;
+	for(i = 0; i < size * size; i++)
+		if(m[i] == 0)
+			return i;
 }
 
 void Sudoku::flip(int x)
