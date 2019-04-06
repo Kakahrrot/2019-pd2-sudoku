@@ -5,6 +5,103 @@
 
 using namespace std;
 
+void Sudoku::solve_plus() {
+    int *m = (int *)map;
+    int *p = new int[size * size];
+    int tmp[size][size];
+    int t = 0, flag = 0, start;
+    int n = -1, ans = 0;
+    //replace  int total = get_position(p)
+    int total = 0;
+    for(int j = 0; j < size * size; j++)
+        if(m[j] == 0)
+            p[total++] = j;
+    while(1) {
+        if(!flag) {
+            n++;
+            start = 1;
+        } else {
+            n--;
+            if(m[p[n]] != size) {
+                start = m[p[n]] + 1;
+                flag = 0;
+            } else {
+                m[p[n]] = 0;
+                if(n == 0) // additional terminating contition
+                    break;
+                continue;
+            }
+        }
+        int row = p[n] / size, col = p[n] % size;
+        for(t = start; n != total && t <= size; t++) {
+            //replace check(...);
+            int i,j;
+            bool check = true;
+            for(i = 0; i < size; i++)
+                if(map[i][col] == t) {
+                    check = false;
+                    break;
+                }
+            if(check) {
+                for(j = 0; j < size; j++)
+                    if(map[row][j] == t) {
+                        check = false;
+                        break;
+                    }
+            }
+            if(check) {
+                i = row - row % 3;
+                j = col - col % 3;
+                int (*a)[size] = (int(*)[size])&map[i][j];
+                for(i = 0; i < 3; i++) {
+                    for(j = 0; j < 3; j++) {
+                        if((*a)[j] == t ) {
+                            check = false;
+                            break;
+                        }
+                    }
+                    a++;
+                }
+            }
+            if(check) {
+                m[p[n]] = t;
+                break;
+            }
+        }
+        if(n == total) {
+            ans++;
+            if(ans == 1) {
+                for(int i = 0; i < size; i++)
+                    for(int j = 0; j < size; j++)
+                        tmp[i][j] = map[i][j];
+            }
+            if(ans == 2)
+                break;
+            flag = 1;
+        } else if(t == size + 1) {
+            m[p[n]] = 0;
+            if(n == 0)
+                break;
+            flag = 1;
+        }
+    }
+    switch(ans) {
+    case 0:
+    case 2:
+        cout << ans << "\n";
+        break;
+    case 1:
+        cout << ans << "\n";
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size - 1; j++)
+                cout << tmp[i][j] <<" ";
+            cout << tmp[i][size - 1] << "\n";
+        }
+        break;
+    }
+    delete p;
+}
+
 void Sudoku::solve_inverse() {
     int *m = (int *)map;
     int *p = new int[size * size];
@@ -186,7 +283,6 @@ void Sudoku::swapCol(int x, int y) {
         map[i][x] ^= map[i][y] ^= map[i][x] ^= map[i][y];
         map[i][x+1] ^= map[i][y+1] ^= map[i][x+1] ^= map[i][y+1];
         map[i][x+2] ^= map[i][y+2] ^= map[i][x+2] ^= map[i][y+2];
-
     }
 }
 
@@ -242,7 +338,7 @@ Sudoku Sudoku::generate() {
     //s.print_map();
     srandom(time(NULL));
     int	num1 = random() % 5;//# of grips inserted
-//	cout << num1 << endl;
+    //	cout << num1 << endl;
     int row, col;
     while(num1 > 0) {
         row = random() % size;

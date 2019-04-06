@@ -24,6 +24,7 @@ class Sudoku {
 
     // solve
     void solve();
+    void solve_plus();
     void solve_inverse();
     void print_map();
   private:

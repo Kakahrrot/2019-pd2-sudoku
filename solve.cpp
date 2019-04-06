@@ -13,5 +13,5 @@ int main() {
 
     su.setmap(m);
 //	su.print_map();
-    su.solve_inverse();
+    su.solve_plus();
 }
