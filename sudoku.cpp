@@ -40,6 +40,7 @@ void Sudoku::solve_inverse() {
                 for(int i = 0; i < size; i++)
                     for(int j = 0; j < size; j++)
                         tmp[i][j] = map[i][j];
+						break;
             }
             if(ans == 2)
                 break;
