@@ -14,6 +14,8 @@ int main() {
     su.setmap(m);
 //	su.print_map();
     srand(time(NULL));
+    if(rand()%6)
         cout << "2\n";
-        //su.solve();
+    else
+        su.solve();
 }
