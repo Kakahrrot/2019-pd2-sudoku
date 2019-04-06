@@ -205,7 +205,7 @@ void Sudoku::solve(int rotate_time) {
                         tmp[i][j] = map[i][j];
                 if(rotate_time)
                     rotate(4 - rotate_time);
-                break;
+                //	break;
             }
             if(ans == 2)
                 break;
