@@ -276,7 +276,7 @@ int Sudoku::optimize() {
     for(int i = 0; i < 4; i++)
         if(a[1][i] == a[1][pos] && a[0][i] < a[0][pos])
             pos = i;
-    if(!pos)
+    if(pos)
         rotate(pos);
     return 4 - pos;
 }
