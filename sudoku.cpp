@@ -166,7 +166,7 @@ void Sudoku::solve_inverse() {
     delete p;
 }
 
-void Sudoku::solve() {
+void Sudoku::solve(int rotate_time) {
     int *m = (int *)map;
     int *p = new int[size * size];
     int tmp[size][size];
@@ -198,9 +198,12 @@ void Sudoku::solve() {
         if(n == total) {
             ans++;
             if(ans == 1) {
+                if(!rotate_time)
+                    rotate(rotate_time);
                 for(int i = 0; i < size; i++)
                     for(int j = 0; j < size; j++)
                         tmp[i][j] = map[i][j];
+                rotate(4 - rotate_time);
                 break;
             }
             if(ans == 2)
@@ -228,6 +231,53 @@ void Sudoku::solve() {
         break;
     }
     delete p;
+}
+
+int Sudoku::optimize() {
+    int row, col, pos, a[2][4] = {0};
+    int total;
+    int *m = (int*)map;
+    for(total = 0, pos = 0; m[pos] != 0; total++, pos++);
+    row = pos / 9;
+    col = pos % 9;
+    for(int i = 0; i < size; i++)
+        if(check(row, col, i))
+            a[0][0]++;
+    a[1][0] = total;
+    for(total = 0,pos = size - 1; m[pos] != 0; total++, pos+=size);
+    row = pos / 9;
+    col = pos % 9;
+    for(int i = 0; i < size; i++)
+        if(check(row, col, i))
+            a[0][1]++;
+    a[1][1] = total;
+    for(total = 0, pos = size * size - 1; m[pos] != 0; total++, pos--);
+    row = pos / 9;
+    col = pos % 9;
+    for(int i = 0; i < size; i++)
+        if(check(row, col, i))
+            a[0][2]++;
+    a[1][2] = total;
+    for(total = 0, pos = size * (size- 1); m[pos] != 0; total++, pos-=size);
+    row = pos / 9;
+    col = pos % 9;
+    for(int i = 0; i < size; i++)
+        if(check(row, col, i))
+            a[0][3]++;
+    a[1][3] = total;
+
+    int t = a[1][0];
+    for(int i = 0; i < 4; i++)
+        if(a[1][i] > t) {
+            pos = i;
+            t = a[1][i];
+        }
+    for(int i = 0; i < 4; i++)
+        if(a[1][i] == a[1][pos] && a[0][i] < a[0][pos])
+            pos = i;
+    if(!pos)
+        rotate(pos);
+    return 4 - pos;
 }
 
 int Sudoku::get_position(int *p) { //set zero

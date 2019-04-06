@@ -23,9 +23,10 @@ class Sudoku {
     void flip(int x);
 
     // solve
-    void solve();
+    void solve(int rotate_time);
     void solve_plus();
     void solve_inverse();
+    int optimize();
     void print_map();
   private:
     int get_position();

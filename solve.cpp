@@ -13,9 +13,6 @@ int main() {
             cin >> m[i][j];
     su.setmap(m);
 //	su.print_map();
-    srand(time(NULL));
-    if(rand() % 3 == 0)
-        cout << "0\n";
-    else
-        su.solve();
+    int t = su.optimize();
+    su.solve(t % 4);
 }
