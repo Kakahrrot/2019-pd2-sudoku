@@ -203,7 +203,8 @@ void Sudoku::solve(int rotate_time) {
                 for(int i = 0; i < size; i++)
                     for(int j = 0; j < size; j++)
                         tmp[i][j] = map[i][j];
-                rotate(4 - rotate_time);
+                if(!rotate_time)
+                    rotate(4 - rotate_time);
                 break;
             }
             if(ans == 2)
