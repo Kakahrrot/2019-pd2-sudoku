@@ -5,6 +5,69 @@
 
 using namespace std;
 
+void Sudoku::solve_inverse() {
+    int *m = (int *)map;
+    int *p = new int[size * size];
+    int tmp[size][size];
+    int t = 0, flag = 0, start;
+    int n = -1, ans = 0;
+    int total = get_position(p);
+    while(1) {
+        if(!flag) {
+            n++;
+            start = 9;
+        } else {
+            n--;
+            if(m[p[n]] != 1) {
+                start = m[p[n]] - 1;
+                flag = 0;
+            } else {
+                m[p[n]] = 0;
+                if(n == 0) // additional terminating contition
+                    break;
+                continue;
+            }
+        }
+        for(t = start; n != total && t >= 1; t--) {
+            if( check(p[n]/size, p[n]%size, t) ) {
+                m[p[n]] = t;
+                break;
+            }
+        }
+        if(n == total) {
+            ans++;
+            if(ans == 1) {
+                for(int i = 0; i < size; i++)
+                    for(int j = 0; j < size; j++)
+                        tmp[i][j] = map[i][j];
+            }
+            if(ans == 2)
+                break;
+            flag = 1;
+        } else if(t == 0) {
+            m[p[n]] = 0;
+            if(n == 0)
+                break;
+            flag = 1;
+        }
+    }
+    switch(ans) {
+    case 0:
+    case 2:
+        cout << ans << "\n";
+        break;
+    case 1:
+        cout << ans << "\n";
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size - 1; j++)
+                cout << tmp[i][j] <<" ";
+            cout << tmp[i][size - 1] << "\n";
+        }
+        break;
+    }
+    delete p;
+}
+
 void Sudoku::solve() {
     int *m = (int *)map;
     int *p = new int[size * size];
