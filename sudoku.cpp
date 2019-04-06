@@ -198,12 +198,12 @@ void Sudoku::solve(int rotate_time) {
         if(n == total) {
             ans++;
             if(ans == 1) {
-                if(!rotate_time)
+                if(rotate_time)
                     rotate(rotate_time);
                 for(int i = 0; i < size; i++)
                     for(int j = 0; j < size; j++)
                         tmp[i][j] = map[i][j];
-                if(!rotate_time)
+                if(rotate_time)
                     rotate(4 - rotate_time);
                 break;
             }
