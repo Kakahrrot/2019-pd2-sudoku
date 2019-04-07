@@ -241,32 +241,33 @@ int Sudoku::optimize() {
     for(total = 0, pos = 0; m[pos] != 0; total++, pos++);
     row = pos / 9;
     col = pos % 9;
-    for(int i = 0; i < size; i++)
+    for(int i = 1; i <= size; i++)
         if(check(row, col, i))
             a[0][0]++;
     a[1][0] = total;
     for(total = 0,pos = size - 1; m[pos] != 0; total++, pos+=size);
     row = pos / 9;
     col = pos % 9;
-    for(int i = 0; i < size; i++)
+    for(int i = 1; i <= size; i++)
         if(check(row, col, i))
             a[0][1]++;
     a[1][1] = total;
     for(total = 0, pos = size * size - 1; m[pos] != 0; total++, pos--);
     row = pos / 9;
     col = pos % 9;
-    for(int i = 0; i < size; i++)
+    for(int i = 1; i <= size; i++)
         if(check(row, col, i))
             a[0][2]++;
     a[1][2] = total;
     for(total = 0, pos = size * (size- 1); m[pos] != 0; total++, pos-=size);
     row = pos / 9;
     col = pos % 9;
-    for(int i = 0; i < size; i++)
+    for(int i = 1; i <= size; i++)
         if(check(row, col, i))
             a[0][3]++;
     a[1][3] = total;
 
+    pos = 0;//in case that it doesn't go into the if statement
     int t = a[1][0];
     for(int i = 0; i < 4; i++)
         if(a[1][i] > t) {
@@ -276,9 +277,9 @@ int Sudoku::optimize() {
     for(int i = 0; i < 4; i++)
         if(a[1][i] == a[1][pos] && a[0][i] < a[0][pos])
             pos = i;
-    if(pos)
-        rotate(pos);
-    return 4 - pos;
+    if(pos!=0)
+        rotate(4 - pos);
+    return pos;
 }
 
 int Sudoku::get_position(int *p) { //set zero
