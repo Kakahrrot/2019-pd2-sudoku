@@ -2,10 +2,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include "Clock.h"
 
 using namespace std;
 
+
 void Sudoku::solve_plus() {
+    Clock clc;
     int *m = (int *)map;
     int *p = new int[size * size];
     int tmp[size][size];
@@ -16,7 +19,14 @@ void Sudoku::solve_plus() {
     for(int j = 0; j < size * size; j++)
         if(m[j] == 0)
             p[total++] = j;
+    clc.start();
     while(1) {
+
+        if(clc.getTime() > 20) {
+            ans ? ans = 2 : ans = 0;
+            break;
+        }
+
         if(!flag) {
             n++;
             start = 1;
@@ -266,7 +276,6 @@ int Sudoku::optimize() {
         if(check(row, col, i))
             a[0][3]++;
     a[1][3] = total;
-
     pos = 0;//in case that it doesn't go into the if statement
     int t = a[1][0];
     for(int i = 0; i < 4; i++)

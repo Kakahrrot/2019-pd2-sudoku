@@ -12,7 +12,6 @@ int main() {
         for(int j = 0; j < Sudoku::size; j++)
             cin >> m[i][j];
     su.setmap(m);
-//	su.print_map();
-    int t = su.optimize();
-    su.solve(t % 4);
+    //su.print_map();
+    su.solve_plus();
 }
