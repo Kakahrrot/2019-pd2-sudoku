@@ -22,7 +22,7 @@ void Sudoku::solve_plus() {
     clc.start();
     while(1) {
 
-        if(clc.getTime() > 20) {
+        if(clc.getTime() > 15) {
             ans ? ans = 2 : ans = 0;
             break;
         }
