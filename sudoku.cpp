@@ -21,12 +21,10 @@ void Sudoku::solve_plus() {
             p[total++] = j;
     clc.start();
     while(1) {
-
-        if(clc.getTime() > 15) {
+        if(clc.getTime() > 25) {
             ans ? ans = 2 : ans = 0;
             break;
         }
-
         if(!flag) {
             n++;
             start = 1;
